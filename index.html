@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courage Cutz | Precision Elevated</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @keyframes slowZoom {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.15); }
+        }
+        .animate-hero-zoom {
+            animation: slowZoom 10s ease-in-out infinite alternate;
+        }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .reveal-node {
+            opacity: 0;
+            animation: slideIn 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(255,255,255,0.2);
+            border-radius: 10px;
+        }
+        .modal-active {
+            display: flex !important;
+        }
+        
+        /* Infinite Scroll Gallery */
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(calc(-250px * 6)); }
+        }
+        .gallery-track {
+            display: flex;
+            width: calc(250px * 12);
+            animation: scroll 40s linear infinite;
+        }
+        .gallery-track:hover {
+            animation-play-state: paused;
+        }
+        .gallery-item {
+            width: 250px;
+            height: 350px;
+            flex-shrink: 0;
+            padding: 0 10px;
+        }
+
+        /* Slot Machine Animation Styles */
+        .slot-container {
+            height: 1.2em;
+            overflow: hidden;
+            display: inline-block;
+            vertical-align: bottom;
+            position: relative;
+        }
+        .slot-wrapper {
+            transition: transform 0.8s cubic-bezier(0.65, 0, 0.35, 1);
+            display: flex;
+            flex-direction: column;
+        }
+        .slot-item {
+            height: 1.2em;
+            display: flex;
+            align-items: center;
+        }
+        
+        /* Icon Slot Machine */
+        .icon-slot-container {
+            height: 1.5rem;
+            width: 1.5rem;
+            overflow: hidden;
+            position: relative;
+        }
+        .icon-slot-wrapper {
+            transition: transform 0.8s cubic-bezier(0.65, 0, 0.35, 1);
+            display: flex;
+            flex-direction: column;
+        }
+        .icon-slot-item {
+            height: 1.5rem;
+            width: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Testimonial Slider */
+        .testimonial-track {
+            display: flex;
+            transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+    </style>
+</head>
+<body class="bg-black text-white font-sans selection:bg-white selection:text-black overflow-x-hidden">
+
+    <!-- Navigation -->
+    <nav class="absolute top-0 w-full p-6 z-50 flex justify-between items-center reveal-node">
+        <div class="flex items-center gap-3">
+            <div class="w-12 h-12 bg-white/10 backdrop-blur-md rounded-lg flex items-center justify-center border border-white/20">
+                <div class="icon-slot-container">
+                    <div id="icon-slot-wrapper" class="icon-slot-wrapper text-xl">
+                        <!-- Icons injected via JS -->
+                    </div>
+                </div>
+            </div>
+            <h1 class="text-xl font-black uppercase tracking-tighter">Courage Cutz</h1>
+        </div>
+        <div class="hidden md:flex gap-8 text-[10px] font-bold uppercase tracking-[0.3em] opacity-60">
+            <a href="#about" class="hover:opacity-100 transition-opacity">About</a>
+            <a href="#gallery" class="hover:opacity-100 transition-opacity">Gallery</a>
+            <a href="#services" class="hover:opacity-100 transition-opacity">Services</a>
+            <a href="#contact" class="hover:opacity-100 transition-opacity">Contact</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative h-screen flex flex-col items-center justify-end pb-24 overflow-hidden">
+        <div id="hero-bg" class="absolute inset-0 bg-cover bg-center transition-all duration-[1000ms] brightness-[0.4] animate-hero-zoom" style="background-image: url('https://images.pexels.com/photos/1319460/pexels-photo-1319460.jpeg?auto=compress&cs=tinysrgb&w=1200')"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black"></div>
+        
+        <div class="relative z-10 text-center px-6 reveal-node" style="animation-delay: 0.3s">
+            <h2 class="text-7xl md:text-9xl font-black uppercase tracking-tighter mb-4 leading-none">
+                Precision <br /> <span class="italic text-white/20">Elevated</span>
+            </h2>
+            <p class="text-sm md:text-lg uppercase tracking-[0.5em] font-light mb-12 opacity-70">
+                Luxury Grooming • Victory Estate • Lagos
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <a href="#services" class="px-8 py-3 bg-white/10 backdrop-blur-md border border-white/20 text-white font-bold uppercase tracking-widest text-[10px] hover:bg-white/20 transition-all min-w-[220px] flex items-center justify-center gap-2">
+                    <span>Service:</span>
+                    <div class="slot-container">
+                        <div id="slot-wrapper" class="slot-wrapper">
+                            <!-- Items injected via JS -->
+                        </div>
+                    </div>
+                </a>
+                <a href="#services" class="px-6 py-2.5 bg-white text-black font-black uppercase tracking-widest text-[9px] hover:scale-105 transition-transform">
+                    Book Now
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-24 px-6 md:px-12 border-t border-white/5 bg-zinc-950">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <span class="text-white/30 uppercase tracking-[0.4em] text-[10px] block mb-4">The Selection</span>
+                <h3 class="text-5xl font-black uppercase tracking-tighter mb-12">Signature Menu</h3>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="service-grid">
+                <!-- Services injected via JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Moving Gallery Section -->
+    <section id="gallery" class="py-12 bg-black border-y border-white/5 overflow-hidden">
+        <div class="mb-10 px-6 md:px-12">
+            <span class="text-white/30 uppercase tracking-[0.4em] text-[10px] block mb-2">Live Canvas</span>
+            <h3 class="text-3xl font-black uppercase tracking-tighter italic text-white/80">The Portfolio</h3>
+        </div>
+        <div class="gallery-track" id="gallery-track">
+            <!-- Images will be injected and doubled for infinite effect -->
+        </div>
+    </section>
+
+    <!-- Why Choose Us Section -->
+    <section id="why-us" class="py-24 px-6 md:px-12 bg-zinc-950 border-t border-white/5">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                <div class="reveal-node" style="animation-delay: 0.2s">
+                    <div class="text-white/20 text-5xl font-black mb-6">01</div>
+                    <h4 class="text-xl font-bold uppercase tracking-widest mb-4">Master Craftsmanship</h4>
+                    <p class="text-xs uppercase tracking-widest leading-loose text-white/40">
+                        Every stroke is calculated. We blend architectural precision with artistic flair to define your best self.
+                    </p>
+                </div>
+                <div class="reveal-node" style="animation-delay: 0.4s">
+                    <div class="text-white/20 text-5xl font-black mb-6">02</div>
+                    <h4 class="text-xl font-bold uppercase tracking-widest mb-4">Luxury Atmosphere</h4>
+                    <p class="text-xs uppercase tracking-widest leading-loose text-white/40">
+                        An sanctuary of style. Experience grooming in a curated environment designed for the modern gentleman.
+                    </p>
+                </div>
+                <div class="reveal-node" style="animation-delay: 0.6s">
+                    <div class="text-white/20 text-5xl font-black mb-6">03</div>
+                    <h4 class="text-xl font-bold uppercase tracking-widest mb-4">V-Estate Exclusive</h4>
+                    <p class="text-xs uppercase tracking-widest leading-loose text-white/40">
+                        Privacy and prestige. Located in the heart of Victory Estate, offering a seamless and elite grooming journey.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="py-24 px-6 md:px-12 bg-black overflow-hidden border-t border-white/5">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex justify-between items-end mb-16">
+                <div>
+                    <span class="text-white/30 uppercase tracking-[0.4em] text-[10px] block mb-4">The Verdict</span>
+                    <h3 class="text-5xl font-black uppercase tracking-tighter">Client Stories</h3>
+                </div>
+                <div class="flex gap-4">
+                    <button id="prev-test" class="w-12 h-12 border border-white/10 flex items-center justify-center hover:bg-white hover:text-black transition-all">
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </button>
+                    <button id="next-test" class="w-12 h-12 border border-white/10 flex items-center justify-center hover:bg-white hover:text-black transition-all">
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="relative overflow-hidden">
+                <div id="testimonial-track" class="testimonial-track">
+                    <!-- Testimonials injected via JS -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 px-6 md:px-12 bg-black border-t border-white/5">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-16">
+            <div class="w-full md:w-1/2 reveal-node">
+                <div class="relative group">
+                    <div class="absolute -inset-4 border border-white/10 group-hover:border-white/30 transition-colors"></div>
+                    <img src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=800" class="relative w-full h-[600px] object-cover grayscale brightness-75 hover:grayscale-0 transition-all duration-1000" alt="CEO">
+                </div>
+            </div>
+            <div class="w-full md:w-1/2 reveal-node" style="animation-delay: 0.5s">
+                <span class="text-white/30 uppercase tracking-[0.4em] text-[10px] block mb-4">Founder & CEO</span>
+                <h3 class="text-5xl font-black uppercase tracking-tighter mb-8 leading-none">Courage <br/><span class="text-white/20 italic">Omoniyi</span></h3>
+                <p class="text-sm uppercase tracking-widest text-white/50 leading-loose mb-8">
+                    "Barbering is a responsibility. My goal is to bridge the gap between traditional craftsmanship and modern luxury, ensuring every client leaves with a masterpiece."
+                </p>
+                <div class="text-3xl font-serif italic text-white/40">Courage Omoniyi</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact & Location Section -->
+    <section id="contact" class="py-24 px-6 md:px-12 bg-zinc-950 border-t border-white/5">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16">
+            <div class="reveal-node">
+                <span class="text-white/30 uppercase tracking-[0.4em] text-[10px] block mb-4">Get In Touch</span>
+                <h3 class="text-5xl font-black uppercase tracking-tighter mb-12 leading-tight">Visit The <br/><span class="text-white/20 italic">Studio</span></h3>
+                
+                <div class="space-y-12">
+                    <div class="flex gap-6 items-start">
+                        <div class="w-12 h-12 border border-white/10 flex items-center justify-center flex-shrink-0 text-white/40">
+                            <i class="fa-solid fa-location-dot text-xl"></i>
+                        </div>
+                        <div>
+                            <h5 class="text-[10px] uppercase tracking-[0.3em] text-white/30 mb-2 font-bold">Location</h5>
+                            <p class="text-sm font-bold tracking-widest uppercase leading-loose">Victory Estate, Lekki County Road,<br/>Lagos, Nigeria.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-6 items-start">
+                        <div class="w-12 h-12 border border-white/10 flex items-center justify-center flex-shrink-0 text-white/40">
+                            <i class="fa-solid fa-clock text-xl"></i>
+                        </div>
+                        <div>
+                            <h5 class="text-[10px] uppercase tracking-[0.3em] text-white/30 mb-2 font-bold">Studio Hours</h5>
+                            <p class="text-sm font-bold tracking-widest uppercase leading-loose">Mon — Sat: 09:00 — 20:00<br/>Sun: 12:00 — 18:00</p>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-6 items-start">
+                        <div class="w-12 h-12 border border-white/10 flex items-center justify-center flex-shrink-0 text-white/40">
+                            <i class="fa-solid fa-paper-plane text-xl"></i>
+                        </div>
+                        <div>
+                            <h5 class="text-[10px] uppercase tracking-[0.3em] text-white/30 mb-2 font-bold">Digital</h5>
+                            <p class="text-sm font-bold tracking-widest uppercase leading-loose underline decoration-white/20 hover:decoration-white transition-all cursor-pointer">hello@couragecutz.com</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="reveal-node" style="animation-delay: 0.3s">
+                <div class="h-full min-h-[400px] w-full bg-white/5 border border-white/10 p-2 grayscale">
+                    <iframe 
+                        class="w-full h-full min-h-[400px] opacity-70"
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3964.6781203673753!2d3.541454!3d6.435343!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x103bf71f92e9f027%3A0x633454b51c888d3d!2sVictory%20Estate!5e0!3m2!1sen!2sng!4v1712332800000!5m2!1sen!2sng" 
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Floating Chart Icon -->
+    <div id="cart-trigger" class="fixed bottom-8 right-8 z-[100] w-16 h-16 bg-white text-black rounded-full flex items-center justify-center cursor-pointer shadow-2xl hover:scale-110 transition-transform hidden">
+        <i class="fa-solid fa-chart-simple text-xl"></i>
+        <div class="absolute -top-1 -right-1 bg-red-600 text-white text-[10px] font-black w-6 h-6 rounded-full flex items-center justify-center border-2 border-black" id="cart-count">0</div>
+    </div>
+
+    <!-- Booking Modal -->
+    <div id="cart-modal" class="fixed inset-0 z-[200] bg-black/90 backdrop-blur-sm hidden items-center justify-center p-6">
+        <div class="bg-zinc-900 border border-white/10 w-full max-w-lg rounded-2xl p-8 relative">
+            <button id="close-modal" class="absolute top-6 right-6 text-white/40 hover:text-white">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+            <h4 class="text-2xl font-black uppercase tracking-tighter mb-8 italic">Your Selection</h4>
+            <div id="cart-items" class="space-y-4 mb-8 max-h-[200px] overflow-y-auto pr-2 custom-scrollbar"></div>
+            <div class="border-t border-white/10 pt-6 mb-8 flex justify-between items-end">
+                <span class="text-[10px] uppercase tracking-widest opacity-40">Total Amount</span>
+                <span id="cart-total" class="text-3xl font-black">₦0</span>
+            </div>
+            <form id="booking-form" class="space-y-3">
+                <input type="text" id="form-name" placeholder="FULL NAME" required class="w-full bg-white/5 border border-white/10 p-4 rounded-lg text-[10px] font-bold uppercase tracking-widest focus:border-white outline-none">
+                <input type="tel" id="form-phone" placeholder="PHONE NUMBER" required class="w-full bg-white/5 border border-white/10 p-4 rounded-lg text-[10px] font-bold uppercase tracking-widest focus:border-white outline-none">
+                <div class="grid grid-cols-2 gap-2">
+                    <input type="date" id="form-date" required class="w-full bg-white/5 border border-white/10 p-4 rounded-lg text-[10px] focus:border-white outline-none">
+                    <input type="time" id="form-time" required class="w-full bg-white/5 border border-white/10 p-4 rounded-lg text-[10px] focus:border-white outline-none">
+                </div>
+                <button type="submit" class="w-full py-5 bg-white text-black font-black uppercase tracking-[0.2em] text-[10px] hover:opacity-90 active:scale-95 transition-transform">
+                    Confirm via WhatsApp
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="py-24 px-6 border-t border-white/5 text-center">
+        <div class="max-w-2xl mx-auto space-y-12">
+            <h4 class="text-4xl font-black uppercase tracking-tighter italic">Stay Sharp.</h4>
+            <div class="flex justify-center gap-8">
+                <a href="tel:+2348136390030" class="opacity-40 hover:opacity-100 transition-all"><i class="fa-solid fa-phone text-2xl"></i></a>
+                <a href="mailto:hello@couragecutz.com" class="opacity-40 hover:opacity-100 transition-all"><i class="fa-solid fa-envelope text-2xl"></i></a>
+                <a href="#" class="opacity-40 hover:opacity-100 transition-all"><i class="fa-brands fa-instagram text-2xl"></i></a>
+            </div>
+            <div class="pt-12 border-t border-white/5 space-y-4">
+                <p class="text-[10px] uppercase tracking-[0.5em] text-white/20">© 2026 Courage Cutz Precision Studio • Lagos, Nigeria</p>
+                <p class="text-[9px] uppercase tracking-[0.4em] font-bold text-white/10">
+                    Crafted by <span class="text-white/40">Vicade</span> • Marketplace Project 2026
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const services = [
+            { id: "s1", name: "Classic Cut", price: 15000, img: 'https://images.pexels.com/photos/1319460/pexels-photo-1319460.jpeg?auto=compress&cs=tinysrgb&w=1200', icon: 'fa-scissors' },
+            { id: "s2", name: "Luxury Shave", price: 12000, img: 'https://images.pexels.com/photos/2065914/pexels-photo-2065914.jpeg?auto=compress&cs=tinysrgb&w=1200', icon: 'fa-soap' },
+            { id: "s3", name: "Gentleman Package", price: 25000, img: 'https://images.pexels.com/photos/1813272/pexels-photo-1813272.jpeg?auto=compress&cs=tinysrgb&w=1200', icon: 'fa-user-tie' }
+        ];
+
+        const galleryImages = [
+            'https://images.pexels.com/photos/1319460/pexels-photo-1319460.jpeg?auto=compress&cs=tinysrgb&w=800',
+            'https://images.pexels.com/photos/2065914/pexels-photo-2065914.jpeg?auto=compress&cs=tinysrgb&w=800',
+            'https://images.pexels.com/photos/1813272/pexels-photo-1813272.jpeg?auto=compress&cs=tinysrgb&w=800',
+            'https://images.pexels.com/photos/7697332/pexels-photo-7697332.jpeg?auto=compress&cs=tinysrgb&w=800',
+            'https://images.pexels.com/photos/3993323/pexels-photo-3993323.jpeg?auto=compress&cs=tinysrgb&w=800',
+            'https://images.pexels.com/photos/3993291/pexels-photo-3993291.jpeg?auto=compress&cs=tinysrgb&w=800'
+        ];
+
+        const testimonials = [
+            { name: "Deji Adeyemi", role: "CEO, TechFlow", text: "The best cut I've had in Lagos. The attention to detail is unmatched." },
+            { name: "Emeka Obi", role: "Model", text: "Courage knows exactly what fits your face shape. Truly a master of the craft." },
+            { name: "Tunde Williams", role: "Architect", text: "Clean atmosphere, professional service, and a sharp fade. Highly recommended." },
+            { name: "Sarah J.", role: "Creative Director", text: "I brought my son here and the experience was top-tier. Very patient and skilled." }
+        ];
+
+        const allServices = [
+            ...services,
+            { id: "s4", name: "Beard Trim", price: 8000 },
+            { id: "s5", name: "Hair Styling", price: 10000 },
+            { id: "s6", name: "Kids Fade", price: 7000 }
+        ];
+
+        let cart = [];
+
+        // Gallery Setup
+        const galleryTrack = document.getElementById('gallery-track');
+        const fullGallery = [...galleryImages, ...galleryImages]; 
+        fullGallery.forEach(function(imgSrc) {
+            const div = document.createElement('div');
+            div.className = "gallery-item";
+            div.innerHTML = `<img src="${imgSrc}" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500 rounded-sm border border-white/10" alt="Cut">`;
+            galleryTrack.appendChild(div);
+        });
+
+        const slotWrapper = document.getElementById('slot-wrapper');
+        const iconSlotWrapper = document.getElementById('icon-slot-wrapper');
+
+        services.forEach(function(s) {
+            const div = document.createElement('div');
+            div.className = "slot-item";
+            div.innerText = s.name;
+            slotWrapper.appendChild(div);
+
+            const iconDiv = document.createElement('div');
+            iconDiv.className = "icon-slot-item";
+            iconDiv.innerHTML = `<i class="fa-solid ${s.icon}"></i>`;
+            iconSlotWrapper.appendChild(iconDiv);
+        });
+
+        const firstClone = document.createElement('div');
+        firstClone.className = "slot-item";
+        firstClone.innerText = services[0].name;
+        slotWrapper.appendChild(firstClone);
+
+        const iconClone = document.createElement('div');
+        iconClone.className = "icon-slot-item";
+        iconClone.innerHTML = `<i class="fa-solid ${services[0].icon}"></i>`;
+        iconSlotWrapper.appendChild(iconClone);
+
+        // Testimonials Setup
+        const testTrack = document.getElementById('testimonial-track');
+        testimonials.forEach(function(t) {
+            const slide = document.createElement('div');
+            slide.className = "min-w-full md:min-w-[50%] p-4";
+            slide.innerHTML = `
+                <div class="bg-white/5 border border-white/10 p-10 h-full flex flex-col justify-between group hover:bg-white/10 transition-all">
+                    <i class="fa-solid fa-quote-left text-3xl text-white/10 mb-6 group-hover:text-white/20"></i>
+                    <p class="text-sm uppercase tracking-widest leading-loose text-white/60 mb-8 italic">"${t.text}"</p>
+                    <div>
+                        <h5 class="font-black uppercase tracking-tighter text-lg">${t.name}</h5>
+                        <span class="text-[10px] uppercase tracking-[0.3em] opacity-30">${t.role}</span>
+                    </div>
+                </div>
+            `;
+            testTrack.appendChild(slide);
+        });
+
+        // Testimonial Logic
+        let testIdx = 0;
+        function updateTestimonials() {
+            const isMobile = window.innerWidth < 768;
+            let step = 50;
+            if (isMobile === true) { step = 100; }
+            
+            let max = testimonials.length - 2;
+            if (isMobile === true) { max = testimonials.length - 1; }
+
+            if (testIdx > max) { testIdx = 0; }
+            if (testIdx < 0) { testIdx = max; }
+            testTrack.style.transform = `translateX(-${testIdx * step}%)`;
+        }
+
+        let testimonialInterval = setInterval(function() {
+            testIdx = testIdx + 1;
+            updateTestimonials();
+        }, 2500);
+
+        function resetTestimonialTimer() {
+            clearInterval(testimonialInterval);
+            testimonialInterval = setInterval(function() {
+                testIdx = testIdx + 1;
+                updateTestimonials();
+            }, 2500);
+        }
+
+        document.getElementById('next-test').onclick = function() { 
+            testIdx = testIdx + 1; 
+            updateTestimonials(); 
+            resetTestimonialTimer();
+        };
+        document.getElementById('prev-test').onclick = function() { 
+            testIdx = testIdx - 1; 
+            updateTestimonials(); 
+            resetTestimonialTimer();
+        };
+
+        const serviceGrid = document.getElementById('service-grid');
+        allServices.forEach(function(service) {
+            const btn = document.createElement('button');
+            btn.className = "group bg-white/5 border border-white/10 p-6 flex justify-between items-center hover:bg-white hover:text-black transition-all reveal-node";
+            btn.innerHTML = `<span class="uppercase font-bold text-[11px] tracking-widest">${service.name}</span><span class="font-black">₦${service.price.toLocaleString()}</span>`;
+            btn.onclick = function() { addToCart(service); };
+            serviceGrid.appendChild(btn);
+        });
+
+        function addToCart(service) {
+            let exists = false;
+            cart.forEach(function(item) {
+                if (item.id === service.id) { exists = true; }
+            });
+            if (exists === false) {
+                cart.push(service);
+                updateUI();
+            }
+        }
+
+        function removeFromCart(id) {
+            cart = cart.filter(function(item) { return item.id !== id; });
+            updateUI();
+        }
+
+        function updateUI() {
+            const count = document.getElementById('cart-count');
+            const trigger = document.getElementById('cart-trigger');
+            const list = document.getElementById('cart-items');
+            const totalDisplay = document.getElementById('cart-total');
+            count.innerText = cart.length;
+            if (cart.length > 0) { 
+                trigger.classList.remove('hidden'); 
+            } 
+            else { 
+                trigger.classList.add('hidden');
+                const modal = document.getElementById('cart-modal');
+                if (modal) { modal.classList.remove('modal-active'); }
+            }
+            list.innerHTML = '';
+            let total = 0;
+            cart.forEach(function(item) {
+                total += item.price;
+                const div = document.createElement('div');
+                div.className = "flex justify-between items-center bg-white/5 p-3 rounded";
+                div.innerHTML = `<span class="text-[10px] uppercase font-bold tracking-wider">${item.name}</span><button onclick="removeFromCart('${item.id}')" class="text-white/40 hover:text-red-500 transition-colors"><i class="fa-solid fa-circle-xmark"></i></button>`;
+                list.appendChild(div);
+            });
+            totalDisplay.innerText = '₦' + total.toLocaleString();
+        }
+
+        document.getElementById('cart-trigger').onclick = function() { document.getElementById('cart-modal').classList.add('modal-active'); };
+        document.getElementById('close-modal').onclick = function() { document.getElementById('cart-modal').classList.remove('modal-active'); };
+
+        document.getElementById('booking-form').onsubmit = function(e) {
+            e.preventDefault();
+            const name = document.getElementById('form-name').value;
+            const phone = document.getElementById('form-phone').value;
+            const date = document.getElementById('form-date').value;
+            const time = document.getElementById('form-time').value;
+            let names = "";
+            cart.forEach(function(item, i) { 
+                names += item.name; 
+                if (i < cart.length - 1) { names += ", "; }
+            });
+            const msg = `*NEW BOOKING*%0A*Name:* ${name}%0A*Phone:* ${phone}%0A*Date:* ${date}%0A*Time:* ${time}%0A*Services:* ${names}`;
+            window.open(`https://wa.me/2348136390030?text=${msg}`, "_blank");
+            cart = [];
+            updateUI();
+            e.target.reset();
+        };
+
+        let currentIdx = 0;
+        const heroBg = document.getElementById('hero-bg');
+
+        setInterval(function() {
+            currentIdx = currentIdx + 1;
+            const bgIdx = currentIdx % services.length;
+            heroBg.style.backgroundImage = `url('${services[bgIdx].img}')`;
+
+            slotWrapper.style.transform = `translateY(-${currentIdx * 1.2}em)`;
+            iconSlotWrapper.style.transform = `translateY(-${currentIdx * 1.5}rem)`;
+
+            if (currentIdx === services.length) {
+                setTimeout(function() {
+                    slotWrapper.style.transition = 'none';
+                    iconSlotWrapper.style.transition = 'none';
+                    currentIdx = 0;
+                    slotWrapper.style.transform = `translateY(0)`;
+                    iconSlotWrapper.style.transform = `translateY(0)`;
+                    setTimeout(function() {
+                        slotWrapper.style.transition = 'transform 0.8s cubic-bezier(0.65, 0, 0.35, 1)';
+                        iconSlotWrapper.style.transition = 'transform 0.8s cubic-bezier(0.65, 0, 0.35, 1)';
+                    }, 50);
+                }, 850);
+            }
+        }, 8000);
+    </script>
+</body>
+</html>
